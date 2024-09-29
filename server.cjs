@@ -5,9 +5,10 @@ const { MongoClient, ObjectId } = require("mongodb");
 const app = express();
 app.use(cors());
 const port = 5055;
-
+/*
 const uri =
   "mongodb+srv://baba_414:OkAfQsGW5JcCAnYn@cluster0.cq5vh8t.mongodb.net/";
+  */
 const client = new MongoClient(uri);
 
 app.get("/posts", async (req, res) => {
