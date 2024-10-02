@@ -5,7 +5,7 @@ function Movies() {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5055/posts")
+    fetch("http://localhost:1990/posts")
       .then((response) => response.json())
       .then((data) => {
         setMovies(data);
@@ -15,9 +15,12 @@ function Movies() {
       });
   }, []);
   const handleDelete = async (movieId) => {
+    console.log("error", movieId)
+
     try{
-      await axios.delete(`http://localhost:5055/posts/${movieId}`)
-      setMovies(movies.filter((movie) => movie._id !== movieId))
+      await axios.delete(`http://localhost:1990/posts/delete/${movieId}`)
+      const displayMovies = movies.filter((movie) => movie._id !== movieId)
+      setMovies(displayMovies)
     }catch(error){
       console.error("Error deleting movie:", error);
       alert("failed to delete");
@@ -31,6 +34,7 @@ function Movies() {
         <ul>
           {movies.map((movie) => (
             <li key={movie._id}>
+              <p>Image: <img src={movie.image} alt={movie.name} /></p>
               <h2>Title: {movie.title}</h2>
               <p>Body: {movie.body}</p>
               <p>Category: {movie.category}</p>
